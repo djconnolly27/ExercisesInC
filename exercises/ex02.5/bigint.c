@@ -34,17 +34,12 @@ returns: string
 */
 char *reverse_string(char *s) {
     int size = strlen(s);
-    char t[size];
+    char* ptr = (char*)malloc(size);
 
     for (int i = size - 1; i >= 0; i--) {
-      t[size - 1 - i] = s[i];
-      printf("s[i]: %i\n", s[i]);
+      ptr[size - 1 - i] = s[i];
     }
-
-    printf("S: %s\n", s);
-    s = t;
-    printf("S: %s\n", s);
-    return s;
+    return ptr;
 }
 
 /* ctoi: Converts a character to integer.
@@ -173,6 +168,7 @@ void test_reverse_string() {
     } else {
         printf("reverse_string failed\n");
     }
+    free(t);
 }
 
 void test_itoc() {
@@ -210,6 +206,9 @@ void test_add_bigint() {
     } else {
         printf("add_bigint failed\n");
     }
+    free(big1);
+    free(big2);
+    free(big3);
 }
 
 int main (int argc, char *argv[])
