@@ -52,6 +52,22 @@ double time_func(int iters, float(*func)())
     return t1 - t0;
 }
 
+double time_func2(int iters, double(*func)())
+{
+    int i;
+    double f;
+    double t0, t1;
+
+    srandom(time(NULL));
+
+    t0 = get_seconds();
+    for (i=0; i<iters; i++) {
+        f = func();
+    }
+    t1 = get_seconds();
+    return t1 - t0;
+}
+
 
 main(int argc, char *argv[])
 {
@@ -65,15 +81,22 @@ main(int argc, char *argv[])
     time = time_func(iters, dummy2);
     printf("%f ms \t dummy2\n", time);
 
-    time = time_func(iters, random_float);
-    printf("%f ms \t random_float\n", time);
+    time = time_func(iters, random_double);
+    printf("%f ms \t random_double\n", time);
 
-    time = time_func(iters, my_random_float);
-    printf("%f ms \t my_random_float\n", time);
+    time = time_func2(iters, my_random_double);
+    printf("%f ms \t my_random_double\n", time);
 
-    time = time_func(iters, my_random_float2);
-    printf("%f ms \t my_random_float2\n", time);
+    // time = time_func(iters, my_random_float2);
+    // printf("%f ms \t my_random_float2\n", time);
 
-    time = time_func(iters, random_float);
-    printf("%f ms \t random_float\n", time);
+    // time = time_func(iters, random_float);
+    // printf("%f ms \t random_float\n", time);
 }
+
+/*
+4. The standard algorithm (i.e. random_float) is the fastest random number generator.
+Of the custom generators, my_random_float is more than twice as fast as my_random_float2.
+
+6. The standard random_double algorithm is far faster than the my_random_double algorithm.
+*/
