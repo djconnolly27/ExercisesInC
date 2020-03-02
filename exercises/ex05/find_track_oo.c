@@ -31,7 +31,13 @@ typedef regex_t Regex;
 */
 Regex *make_regex(char *pattern, int flags) {
     // FILL THIS IN!
-    return NULL;
+    Regex *re = malloc(sizeof(Regex));
+    int status = regcomp(re, pattern, flags);
+    if (status) {
+      printf("Regex did not compile.");
+      exit(1);
+    }
+    return re;
 }
 
 /* Checks whether a regex matches a string.
@@ -42,6 +48,15 @@ Regex *make_regex(char *pattern, int flags) {
 */
 int regex_match(Regex *regex, char *s) {
     // FILL THIS IN!
+    int status = regexec(regex, s, 0, NULL, 0);
+    if (!status) {
+      return 1;
+    } else if (status == REG_NOMATCH) {
+      return 0;
+    } else {
+      printf("Error executing regex match.");
+      exit(1);
+    }
     return 0;
 }
 
@@ -51,6 +66,7 @@ int regex_match(Regex *regex, char *s) {
 */
 void regex_free(Regex *regex) {
     // FILL THIS IN!
+    regfree(regex);
 }
 
 
