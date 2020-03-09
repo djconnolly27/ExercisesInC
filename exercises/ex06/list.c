@@ -98,6 +98,7 @@ int remove_by_value(Node **list, int val) {
           prev->next = curr->next;
         }
         num_removed++;
+        free(curr);
         break;
       }
       if (prev == NULL) {
