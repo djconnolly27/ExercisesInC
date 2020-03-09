@@ -60,6 +60,7 @@ int pop(Node **list) {
     }
     int val = curr->val;
     *list = curr->next;
+    free(curr);
     return val;
 }
 
