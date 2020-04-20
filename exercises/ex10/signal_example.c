@@ -44,8 +44,8 @@ void end_game(int sig)
 /* Signal handler: Notify the user and raise SIGINT.
 */
 void times_up(int sig) {
-    puts("\nTIME'S UP!");
-    raise(SIGINT);
+    puts("\nTIME'S UP! Answer your last question!");
+    // raise(SIGINT);
 }
 
 int main(void) {
@@ -71,7 +71,10 @@ int main(void) {
         alarm(5);
 
         // get the answer
-	    char *ret = fgets(txt, 4, stdin);
+	      char *ret = fgets(txt, 4, stdin);
+        if (ret == NULL) {
+          fgets(txt, 4, stdin);
+        }
         answer = atoi(txt);
 
         // check the answer
@@ -82,6 +85,9 @@ int main(void) {
             printf("\nWrong!\n");
         }
         printf("Score: %i\n", score);
+        if (ret == NULL) {
+          raise(SIGINT);
+        }
     }
     return 0;
 }
