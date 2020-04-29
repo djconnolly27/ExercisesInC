@@ -3,13 +3,15 @@
 Copyright 2014 Allen Downey
 License: GNU GPLv3
 
+You can see evidence of concurrency because multiple threads print the same value of the counter when they first access its value before incrementing the counter. However, no synchronization errors occur as the counter always ends up at the correct value.
+
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 
-#define NUM_CHILDREN 5
+#define NUM_CHILDREN 20
 
 /* Print an error message and exit.
 */
